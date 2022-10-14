@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Data\Repositories\" />
     <Folder Include="Services\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
