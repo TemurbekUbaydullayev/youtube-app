@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using YouTube.WebApi.Domain.Commons;
 using YouTube.WebApi.Domain.Enums;
 
@@ -15,14 +16,14 @@ public class User : Auditable
     [MaxLength(70)]
     public string Email { get; set; } = null!;
 
-    public UserRole UserRole { get; set; } = UserRole.User;
-
-    public ItemState ItemState { get; set; } = ItemState.Enable;
-
     [MaxLength(200)]
     public string? ImagePath { get; set; }
 
+    [JsonIgnore]
+    public UserRole UserRole { get; set; } = UserRole.User;
+
     [MaxLength(8)]
+    [JsonIgnore]
     public string Password { get; set; } = null!;
 
 }
