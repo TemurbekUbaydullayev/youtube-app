@@ -19,11 +19,9 @@ public class User : Auditable
     [MaxLength(200)]
     public string? ImagePath { get; set; }
 
-    [JsonIgnore]
     public UserRole UserRole { get; set; } = UserRole.User;
 
     [MaxLength(8)]
-    [JsonIgnore]
     public string Password { get; set; } = null!;
 
 }
