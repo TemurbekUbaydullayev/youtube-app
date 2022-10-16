@@ -25,7 +25,7 @@ public class UserForCreationDto
             ErrorMessage = "Please enter valid email")]
     public string Email { get; set; } = null!;
 
-    [Required(ErrorMessage = "Image is required")]
+    [Required(ErrorMessage = "Image is required!")]
     [DataType(DataType.Upload)]
     [MaxFileSize(3)]
     [AllowedFileExtensionsAttribute(new string[] { ".jpg", ".png", ".jpeg" })]

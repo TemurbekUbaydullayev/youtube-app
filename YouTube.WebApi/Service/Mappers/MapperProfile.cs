@@ -8,7 +8,8 @@ public class MapperProfile : Profile
 {
     public MapperProfile()
     {
-        CreateMap<UserForCreationDto, User>();
-        CreateMap<User, UserForViewDto>();
+        CreateMap<UserForCreationDto, User>().ReverseMap();
+        CreateMap<User, UserForViewDto>().ReverseMap();
+        CreateMap<IEnumerable<UserForViewDto>, IQueryable<User>>();
     }
 }

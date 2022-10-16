@@ -7,7 +7,7 @@ using YouTube.WebApi.Service.Interfaces;
 
 namespace YouTube.WebApi.Controllers
 {
-    [Route("api/accounts")]
+    [Route("accounts")]
     [ApiController]
     public class AccountsController : ControllerBase
     {

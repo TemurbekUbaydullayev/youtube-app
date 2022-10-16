@@ -19,9 +19,9 @@ namespace YouTube.WebApi.Migrations
                     FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: false),
-                    ImagePath = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: true),
+                    ImagePath = table.Column<string>(type: "text", nullable: true),
                     UserRole = table.Column<int>(type: "integer", nullable: false),
-                    Password = table.Column<string>(type: "character varying(8)", maxLength: 8, nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
