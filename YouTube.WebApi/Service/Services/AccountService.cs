@@ -49,11 +49,11 @@ public class AccountService : IAccountService
 
         var isTrue = PasswordHasher.Verify(dto.Password, user.Password);
         return isTrue
-            ? GeneratedToken(user) 
+            ? GeneratedToken(user)
             : throw new HttpStatusCodeException(HttpStatusCode.NotFound, "Password not valid!");
     }
 
-    public async Task<string> RegisterAsync(UserForCreationDto dto)
+    public async Task<bool> RegisterAsync(UserForCreationDto dto)
     {
         var checkUser = await _userRepository.FindByEmailAsync(dto.Email);
         if (checkUser is not null)
@@ -76,7 +76,7 @@ public class AccountService : IAccountService
         await _userRepository.CreateAsync(user);
         await _dbSet.SaveChangesAsync();
 
-        return GeneratedToken(user);
+        return true;
     }
 
     public async Task<bool> SendEmailAsync(string email)

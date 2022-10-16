@@ -38,7 +38,7 @@ namespace YouTube.WebApi.Data.Repositories
         }
 
         public async Task<User?> GetAsync(Expression<Func<User, bool>> expression)
-            => await _dbSet.Users.FindAsync(expression);
+            => await _dbSet.Users.FirstOrDefaultAsync(expression);
 
         public async Task<User> UpdateAsync(User user)
         {
