@@ -85,7 +85,33 @@ public class AccountService : IAccountService
 
         return true;
     }
+    public async Task<string> VerifyEmailAsync(string email, string code)
+    {
+        var user = await _userRepository.FindByEmailAsync(email);
+        if (user is null)
+            throw new NotFoundException("User");
 
+        if(_cache.TryGetValue(email, out var exceptedCode))
+        {
+            if (exceptedCode.Equals(code))
+                return GeneratedCode();
+
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, "Code is not valid.");
+        }
+
+        throw new HttpStatusCodeException(HttpStatusCode.BadRequest, "Code is expired!");
+    }
+
+    public async Task<bool> CheckConfirmPasswordAsync(string email, string password)
+    {
+        var user = await _userRepository.FindByEmailAsync(email);
+
+        user.Password = password;
+
+        await _userRepository.UpdateAsync(user);
+
+        return true;
+    }
 
 
     private string GeneratedToken(User user)
@@ -114,9 +140,4 @@ public class AccountService : IAccountService
 
     private string GeneratedCode()
         => new Random().Next(1000, 9999).ToString();
-
-    public Task<bool> VerifyEmailAsync(string email, string code)
-    {
-        throw new NotImplementedException();
-    }
 }

@@ -4,7 +4,7 @@ namespace YouTube.WebApi.Domain.Commons;
 
 public class Auditable
 {
-    public uint Id { get; set; }
+    public long Id { get; set; }
 
     [JsonIgnore]
     public bool IsActive { get; set; } = true;

@@ -7,5 +7,6 @@ public interface IAccountService
     Task<string> RegisterAsync(UserForCreationDto dto);
     Task<string> LoginAsync(UserForLoginDto dto);
     Task<bool> SendEmailAsync(string email);
-    Task<bool> VerifyEmailAsync(string email, string code);
+    Task<string> VerifyEmailAsync(string email, string code);
+    Task<bool> CheckConfirmPasswordAsync(string email, string password);
 }
