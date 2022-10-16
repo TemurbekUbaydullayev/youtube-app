@@ -45,7 +45,15 @@ public class UserService : IUserService
     {
         var users = _userRepository.GetAll(expression).Where(p => p.IsActive.Equals(true)).ToPagedAsQueryable(parameters);
 
-        return _mapper.Map<IEnumerable<UserForViewDto>>(users);
+        var entities = new List<UserForViewDto>();
+        foreach (var user in users)
+        {
+            var entity = _mapper.Map<UserForViewDto>(user);
+            entity.ImageUrl = user.ImagePath!;
+            entities.Add(entity);
+        }
+
+        return entities;
     }
 
     public async Task<UserForViewDto> GetAsync(Expression<Func<User, bool>> expression)
