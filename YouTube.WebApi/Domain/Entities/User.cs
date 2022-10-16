@@ -15,12 +15,10 @@ public class User : Auditable
     [MaxLength(70)]
     public string Email { get; set; } = null!;
 
-    [MaxLength(200)]
     public string? ImagePath { get; set; }
 
     public UserRole UserRole { get; set; } = UserRole.User;
 
-    [MaxLength(8)]
     public string Password { get; set; } = null!;
 
 }

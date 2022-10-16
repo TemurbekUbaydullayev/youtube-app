@@ -44,8 +44,7 @@ namespace YouTube.WebApi.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("ImagePath")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
@@ -57,8 +56,7 @@ namespace YouTube.WebApi.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("character varying(8)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");

@@ -59,12 +59,19 @@ public class AccountService : IAccountService
         if (checkUser is not null)
             throw new HttpStatusCodeException(HttpStatusCode.BadRequest, "User already exist!");
 
-        var user = _mapper.Map<User>(dto);
+        var imagePath = string.Empty;
 
         if (dto.Image is null)
-            user.ImagePath = $"{_fileService.ImageFolderName}/defaultAvatar.png";
+            imagePath = $"{_fileService.ImageFolderName}/defaultAvatar.png";
         else
-            user.ImagePath = await _fileService.SaveImageAsync(dto.Image);
+            imagePath = await _fileService.SaveImageAsync(dto.Image);
+
+        var passwordHash = PasswordHasher.Hash(dto.Password).ToString();
+
+        var user = _mapper.Map<User>(dto);
+
+        user.Password = passwordHash;
+        user.ImagePath = imagePath;
 
         await _userRepository.CreateAsync(user);
         await _dbSet.SaveChangesAsync();
@@ -94,7 +101,7 @@ public class AccountService : IAccountService
         if(_cache.TryGetValue(email, out var exceptedCode))
         {
             if (exceptedCode.Equals(code))
-                return GeneratedCode();
+                return GeneratedToken(user);
 
             throw new HttpStatusCodeException(HttpStatusCode.BadRequest, "Code is not valid.");
         }
@@ -106,9 +113,11 @@ public class AccountService : IAccountService
     {
         var user = await _userRepository.FindByEmailAsync(email);
 
-        user.Password = password;
+        user.Password = PasswordHasher.Hash(password);
+        user.UpdatedAt = DateTime.UtcNow;
 
         await _userRepository.UpdateAsync(user);
+        await _dbSet.SaveChangesAsync();
 
         return true;
     }

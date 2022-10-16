@@ -25,9 +25,9 @@ namespace YouTube.WebApi.Data.Repositories
 
         public async Task<User?> FindByEmailAsync(string email)
         {
-            var entity = await _dbSet.Users.FirstOrDefaultAsync(email => email.Email.Equals(email));
+            var entity = await _dbSet.Users.FirstOrDefaultAsync(p => p.Email.Equals(email));
 
-            return entity is null ? null : entity;
+            return entity;
         }
 
         public IQueryable<User> GetAll(Expression<Func<User, bool>>? expression = null, bool isTracking = true)
