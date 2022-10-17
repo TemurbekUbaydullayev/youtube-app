@@ -18,6 +18,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//----> Corc Policy
+builder.Services.AddCors(cors =>
+{
+    cors.AddPolicy("AllowAll", accesses =>
+        accesses.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
 builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
@@ -65,6 +72,8 @@ HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccesso
 app.UseMiddleware<CustomExceptionMiddleware>();
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseStaticFiles();
 
