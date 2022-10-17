@@ -31,7 +31,7 @@ namespace YouTube.WebApi.Controllers
             return Ok(res);
         }
 
-        [HttpGet("users")]
+        [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromQuery]PaginationParameters @params)
         {
             var res = await _userService.GetAllAsync(expression:null, @params);
