@@ -10,8 +10,9 @@ public class Video : Auditable
     public string Name { get; set; } = null!;
     public long UserId { get; set; }
     public string VideoPath { get; set; } = null!;
+    public double VideoSize { get; set; }
 
-    
+
     [ForeignKey(nameof(UserId))]
     public User User { get; set; } = null!;
 }

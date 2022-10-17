@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="Service\Commons\Validator\" />
     <Folder Include="Service\Commons\Utils\" />
+    <Folder Include="wwwroot\Videos\" />
   </ItemGroup>
 
 </Project>
