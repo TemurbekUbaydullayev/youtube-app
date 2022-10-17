@@ -22,7 +22,7 @@ namespace YouTube.WebApi.Controllers
         public async Task<IActionResult> RegistrAsync([FromForm]UserForCreationDto dto)
         {
             var res = await _accountService.RegisterAsync(dto);
-            return Ok(new { Token = res });
+            return Ok(res);
         }
         [HttpPost("login"), AllowAnonymous]
         public async Task<IActionResult> LoginAsync([FromForm]UserForLoginDto loginDto)
@@ -42,7 +42,7 @@ namespace YouTube.WebApi.Controllers
         public async Task<IActionResult> VerifyEmailAsync(string email, string code)
         {
             var result = await _accountService.VerifyEmailAsync(email, code);
-            return Ok(result);
+            return Ok(new {Token = result });
         }
 
         [HttpPost("confirmedpassword"), Authorize(Roles = "User, Admin")]
