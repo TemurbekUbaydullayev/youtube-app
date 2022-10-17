@@ -12,7 +12,7 @@ using YouTube.WebApi.Data.DbContexts;
 namespace YouTube.WebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221016083555_InitialCreate")]
+    [Migration("20221017040010_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
