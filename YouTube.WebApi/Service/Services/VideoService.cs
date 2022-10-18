@@ -5,6 +5,7 @@ using YouTube.WebApi.Data.Interfaces;
 using YouTube.WebApi.Domain.Commons;
 using YouTube.WebApi.Domain.Entities;
 using YouTube.WebApi.Service.Commons.Exceptions;
+using YouTube.WebApi.Service.Commons.Extensions;
 using YouTube.WebApi.Service.Commons.Helpers;
 using YouTube.WebApi.Service.DTOs.Videos;
 using YouTube.WebApi.Service.Interfaces;
@@ -77,7 +78,7 @@ public class VideoService : IVideoService
             views.Add(view);
         }
 
-        return views;
+        return views.ToPagedAsEnumerable(parameters);
     }
 
     public async Task<VideoForViewDto> GetAsync(long id, Expression<Func<Video, bool>> expression)
