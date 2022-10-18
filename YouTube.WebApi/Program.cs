@@ -18,7 +18,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//----> Corc Policy
+//----> Cors Policy
 builder.Services.AddCors(cors =>
 {
     cors.AddPolicy("AllowAll", accesses =>
@@ -45,6 +45,7 @@ loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
 
 //---> Repository
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IVideoRepository, VideoRepository>();
 
 //---> Mappers
 builder.Services.AddAutoMapper(typeof(MapperProfile));

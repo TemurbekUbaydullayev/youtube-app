@@ -4,5 +4,7 @@ public interface IFileService
 {
     public string ImageFolderName { get; }
     Task<string> SaveImageAsync(IFormFile image);
-    Task<bool> DeleteImageAsync(string relativeImagePath);
+    Task<bool> DeleteFileAsync(string relativeImagePath);
+
+    Task<string> SaveVideoAsync(IFormFile video);
 }

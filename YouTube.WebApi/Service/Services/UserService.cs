@@ -74,7 +74,7 @@ public class UserService : IUserService
         if (user is null)
             throw new NotFoundException("User");
 
-        await _fileService.DeleteImageAsync(user.ImagePath);
+        await _fileService.DeleteFileAsync(user.ImagePath);
         var imagePath = await _fileService.SaveImageAsync(dto.Image);
         var hashPassword = PasswordHasher.Hash(dto.Password);
 
