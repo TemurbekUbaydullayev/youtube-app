@@ -6,7 +6,7 @@ using YouTube.WebApi.Service.Interfaces;
 
 namespace YouTube.WebApi.Controllers
 {
-    [Route("api/videos")]
+    [Route("videos")]
     [ApiController]
     public class VideosController : ControllerBase
     {
@@ -29,7 +29,9 @@ namespace YouTube.WebApi.Controllers
         [HttpGet("id"), Authorize]
         public async Task<IActionResult> GetByIndexAsync(long id)
         {
-            var res = await _videoService.GetAsync(p => p.Id == id);
+            var userId = long.Parse(HttpContext.User.FindFirst("Id")?.Value ?? "0");
+
+            var res = await _videoService.GetAsync(userId, p => p.Id == id);
             return Ok(res);
         }
     }
