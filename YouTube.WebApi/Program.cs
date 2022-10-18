@@ -29,11 +29,11 @@ builder.Services.AddScoped<IFileService, FileService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IVideoRepository, VideoRepository>();
+builder.Services.AddScoped<IVideoService, VideoService>();
 
 builder.Services.AddMemoryCache();
 
-var connectionString = builder.Configuration.GetConnectionString("PostgresProductionDb");
+var connectionString = builder.Configuration.GetConnectionString("PostgresDevelopmentDb");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(connectionString);

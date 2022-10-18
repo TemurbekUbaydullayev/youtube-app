@@ -1,4 +1,5 @@
 ﻿using YouTube.WebApi.Domain.Entities;
+using YouTube.WebApi.Service.DTOs.Users;
 
 namespace YouTube.WebApi.Service.DTOs.Videos;
 
@@ -10,5 +11,5 @@ public class VideoForViewDto
     public string VideoDownloadUrl { get; set; } = null!;
     public string Time { get; set; } = null!;
     public string Data { get; set; } = null!;
-    public User User { get; set; } = null!;
+    public UserForViewDto User { get; set; } = null!;
 }

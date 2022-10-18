@@ -17,10 +17,16 @@ namespace YouTube.WebApi.Controllers
             _videoService = videoService;
         }
 
-        [HttpPost, AllowAnonymous]
+        [HttpPost, Authorize]
         public async Task<IActionResult> CreateAsync([FromForm] VideoForCreationDto dto)
         {
-            return Ok();
+            var userId = long.Parse(HttpContext.User.FindFirst("Id")?.Value ?? "0");
+            var res = await _videoService.CreateAsync(userId, dto);
+
+            return Ok(res);
         }
+
+        [HttpGet("id"), Authorize]
+        public async Task<IActionResult> GetByIdAsync( )
     }
 }
