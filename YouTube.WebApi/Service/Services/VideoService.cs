@@ -38,6 +38,7 @@ public class VideoService : IVideoService
 
         var video = _mapper.Map<Video>(dto);
         video.UserId = userId;
+        video.VideoPath = await _fileService.SaveVideoAsync(dto.Video);
 
         await _videRepository.CreateAsync(video);
         await _dbSet.SaveChangesAsync();
@@ -60,9 +61,15 @@ public class VideoService : IVideoService
         throw new NotImplementedException();
     }
 
-    public Task<VideoForViewDto> GetAsync(Expression<Func<Video, bool>> expression)
+    public async Task<VideoForViewDto> GetAsync(Expression<Func<Video, bool>> expression)
     {
-        throw new NotImplementedException();
+        var video = await _videRepository.GetAsync(expression);
+        var view = _mapper.Map<VideoForViewDto>(video);
+        view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
+        view.Time = video!.CreatedAt.ToString("HH:mm:ss");
+        view.VideoUrl = video.VideoPath;
+
+        return view;
     }
 
     public Task<bool> UpdateAsync(long userId, long id, VideoForCreationDto dto)
