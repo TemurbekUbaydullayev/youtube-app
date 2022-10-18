@@ -72,7 +72,7 @@ public class VideoService : IVideoService
             var view = _mapper.Map<VideoForViewDto>(video);
             view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
             view.Time = video!.CreatedAt.ToString("HH:mm:ss");
-            view.VideoUrl = FileHelper.MakeVideoUrl(video.VideoPath);
+            view.VideoUrl = video.VideoPath; // FileHelper.MakeVideoUrl(video.VideoPath);
             view.User = await _userService.GetAsync(p => p.Id == video.UserId);
 
             views.Add(view);
@@ -91,7 +91,7 @@ public class VideoService : IVideoService
         var view = _mapper.Map<VideoForViewDto>(video);
         view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
         view.Time = video!.CreatedAt.ToString("HH:mm:ss");
-        view.VideoUrl = FileHelper.MakeVideoUrl(video.VideoPath);
+        view.VideoUrl = video.VideoPath; // FileHelper.MakeVideoUrl(video.VideoPath);
         view.User = user;
 
         return view;

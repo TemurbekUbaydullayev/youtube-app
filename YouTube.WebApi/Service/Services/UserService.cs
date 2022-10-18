@@ -50,7 +50,7 @@ public class UserService : IUserService
         foreach (var user in users)
         {
             var entity = _mapper.Map<UserForViewDto>(user);
-            entity.ImageUrl = FileHelper.MakeImageUrl(user.ImagePath!);
+            entity.ImageUrl = user.ImagePath!; // FileHelper.MakeImageUrl(user.ImagePath!);
             entities.Add(entity);
         }
 
@@ -63,7 +63,7 @@ public class UserService : IUserService
         if (user is null || user.IsActive.Equals(false))
             throw new NotFoundException("User");
         var res = _mapper.Map<UserForViewDto>(user);
-        res.ImageUrl = FileHelper.MakeImageUrl(user.ImagePath!);
+        res.ImageUrl = user.ImagePath!; // FileHelper.MakeImageUrl(user.ImagePath!);
 
         return res; 
     }
@@ -89,7 +89,7 @@ public class UserService : IUserService
         await _dbSet.SaveChangesAsync();
 
         var res = _mapper.Map<UserForViewDto>(entity);
-        res.ImageUrl = FileHelper.MakeImageUrl(entity.ImagePath!);
+        res.ImageUrl = entity.ImagePath!; // FileHelper.MakeImageUrl(user.ImagePath!);
 
         return res;
     }

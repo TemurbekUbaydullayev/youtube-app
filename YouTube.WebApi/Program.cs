@@ -75,9 +75,9 @@ app.UseMiddleware<CustomExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowAll");
-
 app.UseStaticFiles();
+
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 
