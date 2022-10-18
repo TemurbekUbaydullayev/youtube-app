@@ -17,18 +17,21 @@ public class VideoService : IVideoService
     private readonly IMapper _mapper;
     private readonly IVideoRepository _videRepository;
     private readonly IUserRepository _userRepository;
+    private readonly IUserService _userService;
 
     public VideoService(IFileService fileService,
         AppDbContext appDbContext,
         IMapper mapper,
         IVideoRepository videoRepository,
-        IUserRepository userRepository)
+        IUserRepository userRepository,
+        IUserService userService)
     {
         _fileService = fileService;
         _dbSet = appDbContext;
         _mapper = mapper;
         _videRepository = videoRepository;
         _userRepository = userRepository;
+        _userService = userService;
     }
     public async Task<bool> CreateAsync(long userId, VideoForCreationDto dto)
     {
@@ -57,15 +60,15 @@ public class VideoService : IVideoService
         await _dbSet.SaveChangesAsync();
     }
 
-    public Task<IEnumerable<VideoForViewDto>> GetAllAsync(Expression<Func<Video, bool>>? expression = null, PaginationParameters? parameters = null)
+    public async Task<IEnumerable<VideoForViewDto>> GetAllAsync(Expression<Func<Video, bool>>? expression = null, PaginationParameters? parameters = null)
     {
-        throw new NotImplementedException();
+        var videos = await _
     }
 
-    public async Task<VideoForViewDto> GetAsync(Expression<Func<Video, bool>> expression)
+    public async Task<VideoForViewDto> GetAsync(long id, Expression<Func<Video, bool>> expression)
     {
         var video = await _videRepository.GetAsync(expression);
-
+        var user = await _userService.GetAsync(p => p.Id == id);
         if (video is null)
             throw new NotFoundException("Video");
 
@@ -73,6 +76,7 @@ public class VideoService : IVideoService
         view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
         view.Time = video!.CreatedAt.ToString("HH:mm:ss");
         view.VideoUrl = video.VideoPath;
+        view.User = user;
 
         return view;
     }
