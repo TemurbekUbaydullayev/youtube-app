@@ -35,7 +35,7 @@ namespace YouTube.WebApi.Controllers
             var res = await _videoService.GetAsync(userId, p => p.Id == id);
             return Ok(res);
         }
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParameters parameters)
         {
             return Ok(await _videoService.GetAllAsync(parameters: parameters));
