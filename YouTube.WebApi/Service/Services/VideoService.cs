@@ -63,7 +63,21 @@ public class VideoService : IVideoService
 
     public async Task<IEnumerable<VideoForViewDto>> GetAllAsync(Expression<Func<Video, bool>>? expression = null, PaginationParameters? parameters = null)
     {
-        throw new NotImplementedException();
+        var videos = _videRepository.GetAll(expression);
+
+        var views = new List<VideoForViewDto>();
+        foreach (var video in videos)
+        {
+            var view = _mapper.Map<VideoForViewDto>(video);
+            view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
+            view.Time = video!.CreatedAt.ToString("HH:mm:ss");
+            view.VideoUrl = FileHelper.MakeVideoUrl(video.VideoPath);
+            view.User = await _userService.GetAsync(p => p.Id == video.UserId);
+
+            views.Add(view);
+        }
+
+        return views;
     }
 
     public async Task<VideoForViewDto> GetAsync(long id, Expression<Func<Video, bool>> expression)
