@@ -79,16 +79,16 @@ public class AccountService : IAccountService
         return true;
     }
 
-    public async Task<bool> SendEmailAsync(string email)
+    public async Task<bool> SendEmailAsync(UserForEmailSendDto email)
     {
-        var user = await _userRepository.FindByEmailAsync(email);
+        var user = await _userRepository.FindByEmailAsync(email.Email);
         if (user is null)
             throw new NotFoundException("User");
 
         var code = GeneratedCode();
         _cache.Set(email, code, TimeSpan.FromMinutes(2));
 
-        await _emailService.SendAsync(email, code);
+        await _emailService.SendAsync(email.Email, code);
 
         return true;
     }
