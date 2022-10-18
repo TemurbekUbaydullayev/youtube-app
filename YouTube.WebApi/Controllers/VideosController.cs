@@ -26,6 +26,11 @@ namespace YouTube.WebApi.Controllers
             return Ok(res);
         }
 
-
+        [HttpGet("id"), Authorize]
+        public async Task<IActionResult> GetByIndexAsync(long id)
+        {
+            var res = await _videoService.GetAsync(p => p.Id == id);
+            return Ok(res);
+        }
     }
 }

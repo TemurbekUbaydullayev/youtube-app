@@ -35,7 +35,7 @@ public class VideoRepository : IVideoRepository
 
     public async Task<Video?> GetAsync(Expression<Func<Video, bool>> expression)
     {
-        var res = await _dbSet.Videos.FindAsync(expression);
+        var res = await _dbSet.Videos.FirstOrDefaultAsync(expression);
         return res;
     }
 
