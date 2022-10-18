@@ -32,7 +32,7 @@ namespace YouTube.WebApi.Controllers
         }
 
         [HttpPost("email"), AllowAnonymous]
-        public async Task<IActionResult> SendEmailAsync(string email)
+        public async Task<IActionResult> SendEmailAsync([FromBody]string email)
         {
             var res = await _accountService.SendEmailAsync(email);
             return Ok(res);
