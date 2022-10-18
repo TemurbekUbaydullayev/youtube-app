@@ -45,7 +45,7 @@ namespace YouTube.WebApi.Controllers
             return Ok(new {Token = result });
         }
 
-        [HttpPost("confirmedpassword"), Authorize(Roles = "User, Admin")]
+        [HttpPost("confirmedpassword"), Authorize]
         public async Task<IActionResult> CheckConfirmPasswordAsync([FromForm]UserForUpdatePasswordDto dto)
         {
             var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value ?? "";

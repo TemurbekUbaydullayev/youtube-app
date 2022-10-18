@@ -7,4 +7,10 @@ public class FileHelper
         string guid = Guid.NewGuid().ToString();
         return "IMG_" + guid + fileName;
     }
+
+    public static string MakeImageUrl(string partPath)
+        => "https://you-tube-web-app.herokuapp.com/" + partPath;
+
+    public static string MakeVideoUrl(string partPath)
+        => "https://you-tube-web-app.herokuapp.com/" + partPath;
 }
