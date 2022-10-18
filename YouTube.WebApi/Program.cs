@@ -33,7 +33,7 @@ builder.Services.AddScoped<IVideoService, VideoService>();
 
 builder.Services.AddMemoryCache();
 
-var connectionString = builder.Configuration.GetConnectionString("PostgresDevelopmentDb");
+var connectionString = builder.Configuration.GetConnectionString("PostgresProductionDb");
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
