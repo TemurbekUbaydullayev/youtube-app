@@ -26,7 +26,6 @@ namespace YouTube.WebApi.Controllers
             return Ok(res);
         }
 
-        [HttpGet("id"), Authorize]
-        public async Task<IActionResult> GetByIdAsync( )
+
     }
 }
