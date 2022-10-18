@@ -45,9 +45,14 @@ public class VideoService : IVideoService
         return true;
     }
 
-    public Task DeleteAsync(long id)
+    public async Task DeleteAsync(Expression<Func<Video, bool>> expression)
     {
-        throw new NotImplementedException();
+        var video = await _videRepository.GetAsync(expression);
+        if (video is null)
+            throw new NotFoundException("Video");
+
+        await _videRepository.DeleteAsync(video);
+        await _dbSet.SaveChangesAsync();
     }
 
     public Task<IEnumerable<VideoForViewDto>> GetAllAsync(Expression<Func<Video, bool>>? expression = null, PaginationParameters? parameters = null)
