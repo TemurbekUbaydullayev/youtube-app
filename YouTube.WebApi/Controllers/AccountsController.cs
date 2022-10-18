@@ -39,17 +39,17 @@ namespace YouTube.WebApi.Controllers
         }
 
         [HttpPost("emailverify"), AllowAnonymous]
-        public async Task<IActionResult> VerifyEmailAsync(string email, string code)
+        public async Task<IActionResult> VerifyEmailAsync([FromForm]UserForConfirmPasswordDto dto)
         {
-            var result = await _accountService.VerifyEmailAsync(email, code);
+            var result = await _accountService.VerifyEmailAsync(dto);
             return Ok(new {Token = result });
         }
 
         [HttpPost("confirmedpassword"), Authorize(Roles = "User, Admin")]
-        public async Task<IActionResult> CheckConfirmPasswordAsync(string password)
+        public async Task<IActionResult> CheckConfirmPasswordAsync([FromForm]UserForUpdatePasswordDto dto)
         {
             var userEmail = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value ?? "";
-            var result = await _accountService.CheckConfirmPasswordAsync(userEmail, password);
+            var result = await _accountService.CheckConfirmPasswordAsync(userEmail, dto);
             return Ok(result);
         }
     }
