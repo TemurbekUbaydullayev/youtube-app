@@ -55,7 +55,7 @@ builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
 builder.Services.ConfigureJwtAuthorize(builder.Configuration);
-builder.Services.ConfigureSwaggerAuthorize(builder.Configuration);
+builder.Services.ConfigureSwaggerAuthorize();
 
 
 

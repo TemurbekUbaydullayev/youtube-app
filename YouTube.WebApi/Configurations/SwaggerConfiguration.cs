@@ -4,8 +4,7 @@ namespace YouTube.WebApi.Configurations;
 
 public static class SwaggerConfiguration
 {
-    public static void ConfigureSwaggerAuthorize(this IServiceCollection services,
-        IConfiguration _config)
+    public static void ConfigureSwaggerAuthorize(this IServiceCollection services)
     {
         services.AddSwaggerGen(c =>
         {
