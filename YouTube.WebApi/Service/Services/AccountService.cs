@@ -86,7 +86,7 @@ public class AccountService : IAccountService
             throw new NotFoundException("User");
 
         var code = GeneratedCode();
-        _cache.Set(email, code, TimeSpan.FromMinutes(2));
+        _cache.Set(email.Email, code, TimeSpan.FromMinutes(5));
 
         await _emailService.SendAsync(email.Email, code);
 
@@ -97,8 +97,8 @@ public class AccountService : IAccountService
         var user = await _userRepository.FindByEmailAsync(dto.Email);
         if (user is null)
             throw new NotFoundException("User");
-
-        if(_cache.TryGetValue(dto.Email, out var exceptedCode))
+        var email = dto.Email;
+        if(_cache.TryGetValue(email, out var exceptedCode))
         {
             if (exceptedCode.Equals(dto.Code))
                 return GeneratedToken(user);

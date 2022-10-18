@@ -11,8 +11,5 @@ public class UserForConfirmPasswordDto
     public string Email { get; set; } = null!;
 
     [Required]
-    [MinLength(4)]
-    [MaxLength(4)]
-    [RegularExpression(@"^[0-9]", ErrorMessage = "Please enter valid code!")]
     public string Code { get; set; } = null!;
 }
