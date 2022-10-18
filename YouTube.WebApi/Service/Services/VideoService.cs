@@ -64,7 +64,7 @@ public class VideoService : IVideoService
 
     public async Task<IEnumerable<VideoForViewDto>> GetAllAsync(Expression<Func<Video, bool>>? expression = null, PaginationParameters? parameters = null)
     {
-        var videos = _videRepository.GetAll(expression);
+        var videos = _videRepository.GetAll(expression).ToList();
 
         var views = new List<VideoForViewDto>();
         foreach (var video in videos)
