@@ -92,15 +92,15 @@ public class AccountService : IAccountService
 
         return true;
     }
-    public async Task<string> VerifyEmailAsync(string email, string code)
+    public async Task<string> VerifyEmailAsync(UserForConfirmPasswordDto dto)
     {
-        var user = await _userRepository.FindByEmailAsync(email);
+        var user = await _userRepository.FindByEmailAsync(dto.Email);
         if (user is null)
             throw new NotFoundException("User");
 
-        if(_cache.TryGetValue(email, out var exceptedCode))
+        if(_cache.TryGetValue(dto.Email, out var exceptedCode))
         {
-            if (exceptedCode.Equals(code))
+            if (exceptedCode.Equals(dto.Code))
                 return GeneratedToken(user);
 
             throw new HttpStatusCodeException(HttpStatusCode.BadRequest, "Code is not valid.");
@@ -109,11 +109,11 @@ public class AccountService : IAccountService
         throw new HttpStatusCodeException(HttpStatusCode.BadRequest, "Code is expired!");
     }
 
-    public async Task<bool> CheckConfirmPasswordAsync(string email, string password)
+    public async Task<bool> CheckConfirmPasswordAsync(string email, UserForUpdatePasswordDto dto)
     {
         var user = await _userRepository.FindByEmailAsync(email);
 
-        user.Password = PasswordHasher.Hash(password);
+        user!.Password = PasswordHasher.Hash(dto.Password);
         user.UpdatedAt = DateTime.UtcNow;
 
         await _userRepository.UpdateAsync(user);
