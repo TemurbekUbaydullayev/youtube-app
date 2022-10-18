@@ -5,6 +5,7 @@ using YouTube.WebApi.Data.Interfaces;
 using YouTube.WebApi.Domain.Commons;
 using YouTube.WebApi.Domain.Entities;
 using YouTube.WebApi.Service.Commons.Exceptions;
+using YouTube.WebApi.Service.Commons.Helpers;
 using YouTube.WebApi.Service.DTOs.Videos;
 using YouTube.WebApi.Service.Interfaces;
 
@@ -75,7 +76,7 @@ public class VideoService : IVideoService
         var view = _mapper.Map<VideoForViewDto>(video);
         view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
         view.Time = video!.CreatedAt.ToString("HH:mm:ss");
-        view.VideoUrl = video.VideoPath;
+        view.VideoUrl = FileHelper.MakeVideoUrl(video.VideoPath);
         view.User = user;
 
         return view;

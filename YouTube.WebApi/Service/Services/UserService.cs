@@ -6,6 +6,7 @@ using YouTube.WebApi.Domain.Commons;
 using YouTube.WebApi.Domain.Entities;
 using YouTube.WebApi.Service.Commons.Exceptions;
 using YouTube.WebApi.Service.Commons.Extensions;
+using YouTube.WebApi.Service.Commons.Helpers;
 using YouTube.WebApi.Service.Commons.Security;
 using YouTube.WebApi.Service.DTOs.Users;
 using YouTube.WebApi.Service.Interfaces;
@@ -49,7 +50,7 @@ public class UserService : IUserService
         foreach (var user in users)
         {
             var entity = _mapper.Map<UserForViewDto>(user);
-            entity.ImageUrl = user.ImagePath!;
+            entity.ImageUrl = FileHelper.MakeImageUrl(user.ImagePath!);
             entities.Add(entity);
         }
 
@@ -62,7 +63,7 @@ public class UserService : IUserService
         if (user is null || user.IsActive.Equals(false))
             throw new NotFoundException("User");
         var res = _mapper.Map<UserForViewDto>(user);
-        res.ImageUrl = user.ImagePath!;
+        res.ImageUrl = FileHelper.MakeImageUrl(user.ImagePath!);
 
         return res; 
     }
@@ -88,7 +89,7 @@ public class UserService : IUserService
         await _dbSet.SaveChangesAsync();
 
         var res = _mapper.Map<UserForViewDto>(entity);
-        res.ImageUrl = entity.ImagePath!;
+        res.ImageUrl = FileHelper.MakeImageUrl(entity.ImagePath!);
 
         return res;
     }
