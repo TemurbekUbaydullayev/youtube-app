@@ -126,7 +126,7 @@ public class AccountService : IAccountService
     private string GeneratedToken(User user)
     {
         var claims = new[]
-{
+        {
             new Claim("Id", user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.FirstName),
             new Claim(ClaimTypes.Email, user.Email),
