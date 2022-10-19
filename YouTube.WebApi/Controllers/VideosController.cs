@@ -40,5 +40,21 @@ namespace YouTube.WebApi.Controllers
         {
             return Ok(await _videoService.GetAllAsync(parameters: parameters));
         }
+
+        [HttpDelete("{id}"), Authorize]
+        public async Task<IActionResult> DeleteAsync(long id)
+        {
+            await _videoService.DeleteAsync(p => p.Id == id);
+            return Ok();
+        }
+
+        [HttpPut("{id}"), Authorize]
+        public async Task<IActionResult> UpdateAsync(long id, [FromForm]VideoForCreationDto dto)
+        {
+            var userId = long.Parse(HttpContext.User.FindFirst("Id")?.Value ?? "0");
+            var res = await _videoService.UpdateAsync(userId, id, dto);
+
+            return Ok(res);
+        }
     }
 }

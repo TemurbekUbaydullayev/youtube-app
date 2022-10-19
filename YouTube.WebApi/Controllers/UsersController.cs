@@ -17,7 +17,7 @@ namespace YouTube.WebApi.Controllers
             _userService = userService;
         }
 
-        [HttpGet("id")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(long id)
         {
             var res = await _userService.GetAsync(userId => userId.Id == id);
@@ -38,7 +38,7 @@ namespace YouTube.WebApi.Controllers
             return Ok(res);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(long id)
         {
             await _userService.DisableAsync(p => p.Id == id);
