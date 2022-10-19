@@ -35,6 +35,12 @@ public class FileService : IFileService
 
     public async Task<string> SaveImageAsync(IFormFile image)
     {
+        if (!Directory.Exists(_basePath))
+        {
+            Log.Error("wwwroot is not e xist!");
+            Directory.CreateDirectory(_basePath);
+        }
+
         if (!Directory.Exists(Path.Combine(_basePath, _imageFolderName)))
         {
             Log.Error("images not exist!");
@@ -54,6 +60,12 @@ public class FileService : IFileService
 
     public async Task<string> SaveVideoAsync(IFormFile video)
     {
+        if (!Directory.Exists(_basePath))
+        {
+            Log.Error("wwwroot is not e xist!");
+            Directory.CreateDirectory(_basePath);
+        }
+
         if (!Directory.Exists(Path.Combine(_basePath, _videoFolderName)))
         {
             Log.Error("videos not exist!");

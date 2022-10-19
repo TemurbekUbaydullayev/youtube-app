@@ -97,8 +97,22 @@ public class VideoService : IVideoService
         return view;
     }
 
-    public Task<bool> UpdateAsync(long userId, long id, VideoForCreationDto dto)
+    public async Task<bool> UpdateAsync(long userId, long id, VideoForCreationDto dto)
     {
-        throw new NotImplementedException();
+        var video = await _videRepository.GetAsync(p => p.Id == id);
+
+        if (video is null)
+            throw new NotFoundException("Videos");
+
+        var upVideo = _mapper.Map<Video>(dto);
+        upVideo.UserId = userId;
+        upVideo.Id = id;
+        upVideo.UpdatedAt = DateTime.UtcNow;
+        upVideo.VideoPath = await _fileService.SaveVideoAsync(dto.Video);
+
+        await _videRepository.UpdateAsync(upVideo);
+        await _dbSet.SaveChangesAsync();
+
+        return true;
     }
 }
