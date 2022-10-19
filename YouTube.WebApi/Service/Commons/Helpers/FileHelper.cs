@@ -5,7 +5,7 @@ public class FileHelper
     public static string MakeFileName(string fileName)
     {
         string guid = Guid.NewGuid().ToString();
-        return "IMG_" + guid + fileName;
+        return "file_" + guid + fileName;
     }
 
     public static string MakeImageUrl(string partPath)

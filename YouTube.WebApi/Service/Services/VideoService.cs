@@ -72,7 +72,7 @@ public class VideoService : IVideoService
             var view = _mapper.Map<VideoForViewDto>(video);
             view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
             view.Time = video!.CreatedAt.ToString("HH:mm:ss");
-            view.VideoUrl = video.VideoPath; // FileHelper.MakeVideoUrl(video.VideoPath);
+            view.VideoUrl = FileHelper.MakeVideoUrl(video.VideoPath);
             view.User = await _userService.GetAsync(p => p.Id == video.UserId);
 
             views.Add(view);
@@ -84,14 +84,15 @@ public class VideoService : IVideoService
     public async Task<VideoForViewDto> GetAsync(long id, Expression<Func<Video, bool>> expression)
     {
         var video = await _videRepository.GetAsync(expression);
-        var user = await _userService.GetAsync(p => p.Id == id);
-        if (video is null)
+        var user = await _userService.GetAsync(p => p.Id == id && p.IsActive.Equals(true));
+
+        if (video is null || user is null)
             throw new NotFoundException("Video");
 
         var view = _mapper.Map<VideoForViewDto>(video);
         view.Data = video!.CreatedAt.ToString("dd/MM/yyyyy");
         view.Time = video!.CreatedAt.ToString("HH:mm:ss");
-        view.VideoUrl = video.VideoPath; // FileHelper.MakeVideoUrl(video.VideoPath);
+        view.VideoUrl = FileHelper.MakeVideoUrl(video.VideoPath);
         view.User = user;
 
         return view;
