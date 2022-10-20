@@ -50,7 +50,7 @@ public class UserService : IUserService
         foreach (var user in users)
         {
             var entity = _mapper.Map<UserForViewDto>(user);
-            entity.ImageUrl = user.ImagePath!; // FileHelper.MakeImageUrl(user.ImagePath!);
+            entity.ImageUrl = FileHelper.MakeImageUrl(user.ImagePath!);
             entities.Add(entity);
         }
 
