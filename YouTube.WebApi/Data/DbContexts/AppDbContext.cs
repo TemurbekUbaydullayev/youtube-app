@@ -5,8 +5,8 @@ namespace YouTube.WebApi.Data.DbContexts;
 
 public class AppDbContext : DbContext
 {
-    public virtual DbSet<User> Users { get; set; } = null!;
     public virtual DbSet<Video> Videos { get; set; } = null!;
+    public virtual DbSet<User> Users { get; set; } = null!;
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
