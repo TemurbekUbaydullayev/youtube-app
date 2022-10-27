@@ -25,14 +25,14 @@ namespace YouTube.WebApi.Controllers
             return Ok(res);
         }
         [HttpPost("login"), AllowAnonymous]
-        public async Task<IActionResult> LoginAsync([FromForm]UserForLoginDto loginDto)
+        public async Task<IActionResult> LoginAsync([FromBody] UserForLoginDto loginDto)
         {
             var result = await _accountService.LoginAsync(loginDto);
             return Ok(new {Token = result});
         }
 
         [HttpPost("email"), AllowAnonymous]
-        public async Task<IActionResult> SendEmailAsync([FromBody]UserForEmailSendDto dto)
+        public async Task<IActionResult> SendEmailAsync([FromForm]UserForEmailSendDto dto)
         {
             var res = await _accountService.SendEmailAsync(dto);
             return Ok(res);
