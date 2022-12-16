@@ -133,7 +133,7 @@ public class AccountService : IAccountService
             new Claim(ClaimTypes.Role, user.UserRole.ToString()),
         };
 
-        var secretKey = _config["SecretKey"];
+        var secretKey = _config["SecretKey"]; 
         var issuer = _config["Issuer"];
         var audience = _config["Audience"];
         var expire = double.Parse(_config["Lifetime"]);
